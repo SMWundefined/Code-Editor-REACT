@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Editor from './Editor'
+import useLocalStorage from '../hooks/useLocalStorage'
 
 function App() {
-  const [html, setHTML] = useState('')
-  const [css, setCSS] = useState('')
-  const [js, setJS] = useState('')
+  const [html, setHTML] = useLocalStorage('html','')
+  const [css, setCSS] = useLocalStorage('css','')
+  const [js, setJS] = useLocalStorage('js','')
+  //We used UseState then useLocalStorage where the session is stored
   const [srcDoc,setSrcDoc] = useState('')
 
-  useEffect(() => {
+  useEffect(() => { 
     const timeout = setTimeout(() => {
       setSrcDoc (
         `
