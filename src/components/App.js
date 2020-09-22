@@ -1,24 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Editor from './Editor'
 
 function App() {
   const [html, setHTML] = useState('')
   const [css, setCSS] = useState('')
   const [js, setJS] = useState('')
+  const [srcDoc,setSrcDoc] = useState('')
 
-  const srcDoc = `
-  <html>
-    <body>
-      ${html}
-    </body>
-    <style>
-      ${css}
-    </style>
-    <script>
-      ${js}
-    </script>
-  </html>
-  `
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setSrcDoc (
+        `
+        <html>
+          <body>
+            ${html}
+          </body>
+          <style>
+            ${css}
+          </style>
+          <script>
+            ${js}
+          </script>
+        </html>
+        `
+      )
+    }, 550)
+    return() => clearTimeout(timeout)
+
+  }, [html,css,js])
 
   return (
   < >
@@ -45,7 +54,7 @@ function App() {
   </div>
   <div className = "pane">
     <iframe
-      srcDoc ={{srcDoc}}
+      srcDoc ={srcDoc}
       title ="output"
       sandbox = "allow-scripts"
       frameBorder="0"
