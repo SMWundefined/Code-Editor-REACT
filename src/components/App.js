@@ -33,7 +33,7 @@ function App() {
 
   return (
   < >
-  <div className="pane top-panel">
+  <div className="pane top-pane">
     <Editor 
     language="xml" 
     displayName="HTML" 
@@ -54,6 +54,9 @@ function App() {
     onChange={setJS} 
     />
   </div>
+  <div className = "title-pane">
+    Live Output
+    </div>
   <div className = "pane">
     <iframe
       srcDoc ={srcDoc}
