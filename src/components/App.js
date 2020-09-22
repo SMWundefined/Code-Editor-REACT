@@ -6,6 +6,20 @@ function App() {
   const [css, setCSS] = useState('')
   const [js, setJS] = useState('')
 
+  const srcDoc = `
+  <html>
+    <body>
+      ${html}
+    </body>
+    <style>
+      ${css}
+    </style>
+    <script>
+      ${js}
+    </script>
+  </html>
+  `
+
   return (
   < >
   <div className="pane top-panel">
@@ -30,7 +44,8 @@ function App() {
     />
   </div>
   <div className = "pane">
-    <iframe 
+    <iframe
+      srcDoc ={{srcDoc}}
       title ="output"
       sandbox = "allow-scripts"
       frameBorder="0"
