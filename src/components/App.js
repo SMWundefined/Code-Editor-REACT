@@ -1,10 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Editor from './Editor'
+import useLocalStorage from '../hooks/useLocalStorage'
 
 function App() {
-  const [html, setHTML] = useState('')
-  const [css, setCSS] = useState('')
-  const [js, setJS] = useState('')
+  const [html, setHTML] = useLocalStorage('html','')
+  const [css, setCSS] = useLocalStorage('css','')
+  const [js, setJS] = useLocalStorage('js','')
+  //We used UseState then useLocalStorage where the session is stored
+  const [srcDoc,setSrcDoc] = useState('')
+
+  useEffect(() => { 
+    const timeout = setTimeout(() => {
+      setSrcDoc (
+        `
+        <html>
+          <body>
+            ${html}
+          </body>
+          <style>
+            ${css}
+          </style>
+          <script>
+            ${js}
+          </script>
+        </html>
+        `
+      )
+    }, 550)
+    return() => clearTimeout(timeout)
+
+  }, [html,css,js])
 
   return (
   < >
@@ -30,7 +55,8 @@ function App() {
     />
   </div>
   <div className = "pane">
-    <iframe 
+    <iframe
+      srcDoc ={srcDoc}
       title ="output"
       sandbox = "allow-scripts"
       frameBorder="0"
